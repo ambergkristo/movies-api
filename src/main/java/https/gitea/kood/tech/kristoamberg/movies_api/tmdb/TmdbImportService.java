@@ -5,7 +5,6 @@ import https.gitea.kood.tech.kristoamberg.movies_api.entity.Genre;
 import https.gitea.kood.tech.kristoamberg.movies_api.entity.Movie;
 import https.gitea.kood.tech.kristoamberg.movies_api.repository.ActorRepository;
 import https.gitea.kood.tech.kristoamberg.movies_api.repository.GenreRepository;
-import https.gitea.kood.tech.kristoamberg.movies_api.repository.MovieRepository;
 import https.gitea.kood.tech.kristoamberg.movies_api.tmdb.dto.*;
 import org.springframework.stereotype.Service;
 

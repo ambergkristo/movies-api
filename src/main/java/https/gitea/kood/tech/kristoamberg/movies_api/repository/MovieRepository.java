@@ -4,10 +4,7 @@ import https.gitea.kood.tech.kristoamberg.movies_api.entity.Movie;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 
-import java.util.Optional;
-
 public interface MovieRepository
-        extends JpaRepository<Movie, Long>, JpaSpecificationExecutor<Movie> {
-
-    Optional<Movie> findByTitle(String title);
+        extends JpaRepository<Movie, Long>,
+        JpaSpecificationExecutor<Movie> {
 }
