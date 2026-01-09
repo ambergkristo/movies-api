@@ -5,7 +5,6 @@ import https.gitea.kood.tech.kristoamberg.movies_api.entity.Genre;
 import https.gitea.kood.tech.kristoamberg.movies_api.entity.Movie;
 import https.gitea.kood.tech.kristoamberg.movies_api.repository.ActorRepository;
 import https.gitea.kood.tech.kristoamberg.movies_api.repository.GenreRepository;
-import https.gitea.kood.tech.kristoamberg.movies_api.repository.MovieRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
 

@@ -5,6 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 public interface MovieRepository extends JpaRepository<Movie, Long> {
 =======
 import java.util.Optional;
@@ -14,4 +15,9 @@ public interface MovieRepository
 
     Optional<Movie> findByTitle(String title);
 >>>>>>> 56b9885 (fix: correct movie filtering with genre, actor and year (AND logic))
+=======
+public interface MovieRepository
+        extends JpaRepository<Movie, Long>,
+        JpaSpecificationExecutor<Movie> {
+>>>>>>> d13a7d3 (fix: align request params and enable proper filtering)
 }
