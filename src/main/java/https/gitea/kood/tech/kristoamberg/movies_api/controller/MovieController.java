@@ -61,6 +61,6 @@ public class MovieController {
 
     @GetMapping("/{id}/actors")
     public List<Actor> getActors(@PathVariable Long id) {
-        return movieService.getActors(id);
+        return movieService.getActorsByMovieId(id);
     }
 }

@@ -1,12 +1,15 @@
 package https.gitea.kood.tech.kristoamberg.movies_api.service;
 
+import https.gitea.kood.tech.kristoamberg.movies_api.dto.MoviePatchDto;
+import https.gitea.kood.tech.kristoamberg.movies_api.entity.Actor;
 import https.gitea.kood.tech.kristoamberg.movies_api.entity.Movie;
 import https.gitea.kood.tech.kristoamberg.movies_api.repository.MovieRepository;
-import jakarta.persistence.criteria.Predicate;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
+import jakarta.persistence.criteria.Predicate;
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class MovieService {
@@ -18,8 +21,7 @@ public class MovieService {
     }
 
     public List<Movie> getAll(Long genreId, Integer year, Long actorId) {
-
-        Specification<Movie> spec = (root, query, cb) -> {
+        return movieRepository.findAll((Specification<Movie>) (root, query, cb) -> {
             Predicate predicate = cb.conjunction();
 
             if (genreId != null) {
@@ -43,11 +45,8 @@ public class MovieService {
                 );
             }
 
-            query.distinct(true);
             return predicate;
-        };
-
-        return movieRepository.findAll(spec);
+        });
     }
 
     public Movie getById(Long id) {
@@ -55,16 +54,27 @@ public class MovieService {
                 .orElseThrow(() -> new RuntimeException("Movie not found"));
     }
 
-    public Movie create(Movie movie, Iterable<Long> genreIds, Iterable<Long> actorIds) {
+    public Movie create(Movie movie, Set<Long> genreIds, Set<Long> actorIds) {
         return movieRepository.save(movie);
     }
 
-    public Movie update(Long id, Object dto) {
-        return movieRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Movie not found"));
+    public Movie update(Long id, MoviePatchDto dto) {
+        Movie movie = getById(id);
+
+        if (dto.getTitle() != null) movie.setTitle(dto.getTitle());
+        if (dto.getReleaseYear() != null) movie.setReleaseYear(dto.getReleaseYear());
+        if (dto.getDuration() != null) movie.setDuration(dto.getDuration());
+
+        return movieRepository.save(movie);
     }
 
     public void delete(Long id) {
         movieRepository.deleteById(id);
+    }
+
+    // ✅ PUUDUV MEETOD – NÜÜD OLEMAS
+    public List<Actor> getActorsByMovieId(Long movieId) {
+        Movie movie = getById(movieId);
+        return List.copyOf(movie.getActors());
     }
 }
