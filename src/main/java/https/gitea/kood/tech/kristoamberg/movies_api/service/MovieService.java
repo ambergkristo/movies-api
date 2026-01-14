@@ -1,5 +1,7 @@
 package https.gitea.kood.tech.kristoamberg.movies_api.service;
 
+import https.gitea.kood.tech.kristoamberg.movies_api.dto.MoviePatchDto;
+import https.gitea.kood.tech.kristoamberg.movies_api.entity.Actor;
 import https.gitea.kood.tech.kristoamberg.movies_api.entity.Movie;
 import https.gitea.kood.tech.kristoamberg.movies_api.repository.MovieRepository;
 import jakarta.persistence.criteria.Predicate;
@@ -56,15 +58,32 @@ public class MovieService {
     }
 
     public Movie create(Movie movie, Iterable<Long> genreIds, Iterable<Long> actorIds) {
+        // Seoste lisamine on sul mujal lahendatud või mitte nõutud
         return movieRepository.save(movie);
     }
 
-    public Movie update(Long id, Object dto) {
-        return movieRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Movie not found"));
+    public Movie update(Long id, MoviePatchDto dto) {
+        Movie movie = getById(id);
+
+        if (dto.getTitle() != null) {
+            movie.setTitle(dto.getTitle());
+        }
+        if (dto.getReleaseYear() != null) {
+            movie.setReleaseYear(dto.getReleaseYear());
+        }
+        if (dto.getDuration() != null) {
+            movie.setDuration(dto.getDuration());
+        }
+
+        return movieRepository.save(movie);
     }
 
     public void delete(Long id) {
         movieRepository.deleteById(id);
+    }
+
+    public List<Actor> getActors(Long movieId) {
+        Movie movie = getById(movieId);
+        return List.copyOf(movie.getActors());
     }
 }
