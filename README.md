@@ -1,160 +1,113 @@
-⚠️ This README is a temporary working document.
+# movies-api
 
-It will be replaced with a final README once development is complete.
+REST API ja frontend filmide andmebaasi haldamiseks ja katsetamiseks.
+Projekt on tehtud kooli kohustusliku grupitöö raames.
 
+---
+
+## Projekti eesmärk
+
+Eesmärk on luua Spring Boot + JPA põhine REST API, mis võimaldab:
+
+- hallata filme, žanreid ja näitlejaid
+- filtreerida filme žanri, näitleja ja aasta järgi
+- kasutada lehekülgede kaupa päringuid (pagination)
+- teostada lihtsat otsingut filmi pealkirja alusel
+- demonstreerida erinevaid seoseid filmide, žanrite ja näitlejate vahel
+
+Frontend on boonus, mis ei ole kooli poolt kohustuslik, ning on mõeldud API visuaalseks demonstreerimiseks.
 
 
 ---
 
+## Kasutatud tehnoloogiad
 
+Backend
+- Java 21
+- Spring Boot
+- Spring Data JPA
+- Hibernate
+- SQLite
+- Maven
 
-\## Project Goal
+Frontend 
 
-
-
-The goal of this project is to create a REST API that allows managing:
-
-\- Movies
-
-\- Genres
-
-\- Actors
-
-
-
-Including:
-
-\- CRUD operations
-
-\- Filtering and search
-
-\- Many-to-many relationships
-
-\- Proper error handling and validation
-
-
+Frontend kood ei ole kooli hindamiseks vajalik.
+Boonus-frontendi testimiseks piisab veebilehe külastamisest.
 
 ---
 
+## Backend — käivitamine lokaalselt
 
+Eeldused
+- Java 21
+- Maven
 
-\## Team Members \& Responsibilities
+Projekti käivitamine:
+mvn clean spring-boot:run
 
-
-
-This project is developed as a \*\*two-student group project\*\*.
-
-
-
-\### Student A (Project Owner)
-
-Responsibilities:
-
-\- Project setup and configuration
-
-\- Git \& Gitea repository management
-
-\- Database configuration (SQLite)
-
-\- Entity modeling (Movie, Genre, Actor)
-
-\- JPA relationships and annotations
-
-\- Initial project structure
-
-
-
-\### Student B
-
-Responsibilities:
-
-\- Repository layer implementation
-
-\- Service layer (business logic)
-
-\- REST controllers and endpoints
-
-\- Filtering endpoints
-
-\- PATCH update logic
-
-\- API testing with Postman
-
-
-
-\### Shared Responsibilities
-
-\- Error handling and custom exceptions
-
-\- Pagination and search functionality
-
-\- Sample data
-
-\- Final README documentation
-
-\- Code review and cleanup
-
-
+Backend käivitub aadressil:
+http://localhost:8081
 
 ---
 
+## Andmed (Sample Data)
 
+Rakendus kasutab hardcoded näidisandmeid, mis laetakse käivitamisel automaatselt.
 
-\## Development Workflow
-
-
-
-\- The `main` branch contains stable code only.
-
-\- Each student works in their own feature branch.
-
-\- Changes are merged via pull requests.
-
-\- Commits are kept small and descriptive.
-
-
+Tagatud on:
+- vähemalt 20 filmi
+- vähemalt 5 žanri
+- vähemalt 15 näitlejat
+- igal žanril on vähemalt 2 filmi
+- mõnel filmil on mitu žanri
+- mõnel näitlejal on mitu filmi
+- filmide aastad katavad vähemalt kahte aastakümmet
 
 ---
 
+## API kasutamine (lühijuhis)
 
+Filmide päring (filtreerimine) Postmanis
 
-\## Current Project Status
+- GET /api/movies — kõik filmid
+- GET /api/movies?genreId=... — filter žanri järgi
+- GET /api/movies?actorId=... — filter näitleja järgi
+- GET /api/movies?year=... — filter aasta järgi
+- Filtreid saab kombineerida (AND loogika)
 
-
-
-✔ Spring Boot project initialized  
-
-✔ Correct package structure created  
-
-✔ Git repository initialized and pushed to Gitea  
-
-✔ Ready for entity implementation  
-
-
+Näited:
+GET /api/movies?genreId=1
+GET /api/movies?actorId=4
+GET /api/movies?year=2010
+GET /api/movies?genreId=1&actorId=4&year=2010
 
 ---
 
+## Pagination
 
+Näide: esimesed 10 filmi
+GET /api/movies?page=0&size=10
 
-\## Next Steps
+---
 
+## Frontend (boonus) — kasutamine
 
+Frontend on avalik demo ja töötab hardcoded konfiguratsiooniga (Render + Vercel).
 
-1\. Implement entity classes (Movie, Genre, Actor)
+Ava veebileht:
+https://movies-frontend-omega.vercel.app/
 
-2\. Add repository interfaces
+Võtab ca 20 sekundit andmete laadimiseks käivitamisel...
 
-3\. Implement service layer
+Kasutus:
+- Home lehel kuvatakse filmide koguarv ja nimekiri.
+- Movies lehel saad kasutada filtreid:
+    - Žanr
+    - Näitleja
+    - Aasta
+- Reset nupp taastab filtrite algseisu.
 
-4\. Create REST controllers
-
-5\. Add validation and error handling
-
-6\. Add pagination and search
-
-7\. Populate database with sample data
-
-8\. Replace this README with the final project documentation
-
-
-
+Lisainfo:
+- Frontend kasutab backend’i Renderis.
+- Frontend on hostitud Vercelis.
